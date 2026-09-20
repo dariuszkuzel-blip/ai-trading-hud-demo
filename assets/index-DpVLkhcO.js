@@ -1,0 +1,73 @@
+var N=Object.defineProperty;var R=(e,s,t)=>s in e?N(e,s,{enumerable:!0,configurable:!0,writable:!0,value:t}):e[s]=t;var g=(e,s,t)=>R(e,typeof s!="symbol"?s+"":s,t);(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const n of document.querySelectorAll('link[rel="modulepreload"]'))c(n);new MutationObserver(n=>{for(const n of a)if(n.type==="childList")for(const h of n.addedNodes)h.tagName==="LINK"&&h.rel==="modulepreload"&&c(h)}).observe(document,{childList:!0,subtree:!0});function t(n){const a={};return n.integrity&&(a.integrity=n.integrity),n.referrerPolicy&&(a.referrerPolicy=n.referrerPolicy),n.crossOrigin==="use-credentials"?a.credentials="include":n.crossOrigin==="anonymous"?a.credentials="omit":a.credentials="same-origin",a}function c(n){if(n.ep)return;n.ep=!0;const a=t(n);fetch(n.href,a)}})();function D(e){e.innerHTML=`
+<div class="scanlines"></div>
+<div class="vignette"></div>
+<div class="corner tl"></div>
+<div class="corner tr"></div>
+<div class="corner bl"></div>
+<div class="corner br"></div>
+<div class="mode-badge" id="modeBadge">READ-ONLY · MOCK</div>
+
+<div class="hud">
+  <div class="ticker">
+    <div class="ticker-track" id="ticker"></div>
+  </div>
+
+  <div class="header">
+    <div class="panel swarm-title">
+      <div class="lbl">SYSTEM</div>
+      <div class="val cyan">SWARM AI</div>
+      <div class="sub">v3.7 · NODE CLUSTER</div>
+    </div>
+    <div class="panel">
+      <div class="lbl">SWARM PNL</div>
+      <div class="val" id="pnl">+$12,847.32</div>
+      <div class="sub" id="pnlSub">24H · +4.82%</div>
+    </div>
+    <div class="panel">
+      <div class="lbl">ACTIVE AGENTS</div>
+      <div class="val pink" id="agents">47</div>
+      <div class="sub">LATENCY 12ms</div>
+    </div>
+  </div>
+
+  <div class="center">
+    <div class="side-col">
+      <div class="metric"><div class="lbl">WIN RATE</div><div class="val" id="winrate">68.4%</div><div class="bar"><i id="winBar" style="width:68%"></i></div></div>
+      <div class="metric"><div class="lbl">RISK / VA R</div><div class="val" id="risk">0.31</div><div class="bar"><i id="riskBar" style="width:31%;background:linear-gradient(90deg,#ff2d6a,#ffaa00)"></i></div></div>
+      <div class="metric"><div class="lbl">SHARPE</div><div class="val" id="sharpe">2.14</div><div class="bar"><i style="width:72%"></i></div></div>
+      <div class="metric"><div class="lbl">ORDERS/M</div><div class="val" id="opm">128</div><div class="bar"><i id="opmBar" style="width:55%"></i></div></div>
+    </div>
+
+    <div class="orbit-wrap">
+      <div class="orbit-label">NEURAL CORE · ORBIT</div>
+      <canvas id="orbit" width="420" height="520"></canvas>
+      <div class="orbit-status" id="orbitStatus">INFERENCE ACTIVE</div>
+    </div>
+
+    <div class="side-col">
+      <div class="metric"><div class="lbl">BTC / USD</div><div class="val" id="btc">97,842</div><div class="bar"><i id="btcBar" style="width:70%"></i></div></div>
+      <div class="metric"><div class="lbl">ETH / USD</div><div class="val" id="eth">3,421</div><div class="bar"><i id="ethBar" style="width:62%"></i></div></div>
+      <div class="metric"><div class="lbl">SOL / USD</div><div class="val" id="sol">178.4</div><div class="bar"><i id="solBar" style="width:48%"></i></div></div>
+      <div class="metric"><div class="lbl">AI SIGNAL</div><div class="val" id="signal" style="color:#00ff9c">LONG</div><div class="bar"><i style="width:80%;background:linear-gradient(90deg,#00ff9c,#00e5ff)"></i></div></div>
+    </div>
+  </div>
+
+  <div class="charts">
+    <div class="chart-box">
+      <div class="lbl">PRICE · BTC 1M</div>
+      <div class="chart-price" id="cPrice1">97,842</div>
+      <canvas id="chart1" width="340" height="160"></canvas>
+    </div>
+    <div class="chart-box">
+      <div class="lbl">EQUITY CURVE</div>
+      <div class="chart-price" id="cPrice2" style="color:#ff2d6a">+$12.8K</div>
+      <canvas id="chart2" width="340" height="160"></canvas>
+    </div>
+  </div>
+
+  <div class="log">
+    <div class="lbl">ACTIVITY LOG <span id="logClock">00:00:00</span></div>
+    <div class="log-list" id="logList"></div>
+  </div>
+</div>
+`}function w(e,s,t,c){const n=e.canvas.width,a=e.canvas.height;e.clearRect(0,0,n,a),e.strokeStyle="rgba(0,255,156,0.08)",e.lineWidth=1;for(let l=0;l<5;l++){const m=a/5*l;e.beginPath(),e.moveTo(0,m),e.lineTo(n,m),e.stroke()}const h=Math.min(...s),b=Math.max(...s)-h||1;e.beginPath(),s.forEach((l,m)=>{const i=m/(s.length-1)*n,p=a-(l-h)/b*(a-10)-5;m===0?e.moveTo(i,p):e.lineTo(i,p)}),e.strokeStyle=t,e.lineWidth=2,e.shadowColor=t,e.shadowBlur=6,e.stroke(),e.shadowBlur=0,e.lineTo(n,a),e.lineTo(0,a),e.closePath();const f=e.createLinearGradient(0,0,0,a);f.addColorStop(0,c),f.addColorStop(1,"transparent"),e.fillStyle=f,e.fill()}function k(e){const s=e.d>=0?"up":"dn",t=e.d>=0?"+":"";return`<span class="ticker-item"><span class="sym">${e.s}</span> ${e.p.toLocaleString(void 0,{maximumFractionDigits:2})} <span class="${s}">${t}${e.d.toFixed(2)}%</span></span>`}function o(e){const s=document.getElementById(e);if(!s)throw new Error(`Missing #${e}`);return s}function H(e){const s=o("ticker"),t=e.getSnapshot();s.innerHTML=t.tickers.map(k).join("")+t.tickers.map(k).join("");const c=o("chart1"),n=o("chart2"),a=c.getContext("2d"),h=n.getContext("2d"),v=o("logList"),b=o("logClock"),f=e.subscribe(i=>{const p=i.pnl>=0,M=o("pnl");M.textContent=(p?"+$":"-$")+Math.abs(i.pnl).toLocaleString(void 0,{minimumFractionDigits:2,maximumFractionDigits:2}),M.className="val"+(p?"":" pink"),o("pnlSub").textContent="24H · "+(i.pnlPct24h>=0?"+":"")+i.pnlPct24h.toFixed(2)+"%",o("agents").textContent=String(i.agents),o("winrate").textContent=i.winRate.toFixed(1)+"%",o("winBar").style.width=i.winRate+"%",o("risk").textContent=i.risk.toFixed(2),o("riskBar").style.width=i.risk*100+"%",o("sharpe").textContent=i.sharpe.toFixed(2),o("opm").textContent=String(i.ordersPerMin),o("opmBar").style.width=i.ordersPerMin/2+"%",o("btc").textContent=Math.round(i.btc).toLocaleString(),o("eth").textContent=Math.round(i.eth).toLocaleString(),o("sol").textContent=i.sol.toFixed(1),o("cPrice1").textContent=Math.round(i.btc).toLocaleString(),o("btcBar").style.width=55+Math.random()*30+"%",o("ethBar").style.width=50+Math.random()*30+"%",o("solBar").style.width=40+Math.random()*35+"%";const d=o("signal");d.textContent=i.signal,d.style.color=i.signal==="SHORT"?"#ff2d6a":i.signal==="HOLD"?"#ffaa00":"#00ff9c",w(a,i.priceSeries,"#00ff9c","rgba(0,255,156,0.25)"),w(h,i.equitySeries,"#ff2d6a","rgba(255,45,106,0.25)"),o("cPrice2").textContent="+$"+e.getEquityDisplay().toFixed(0)}),l=e.onLog(i=>{const p=document.createElement("div");for(p.className="log-row",p.innerHTML=`<span class="t">${i.time}</span><span class="a">${i.action}</span><span class="m">${i.message}</span><span class="p ${i.up?"up":"dn"}">${i.pnl}</span>`,v.insertBefore(p,v.firstChild);v.children.length>12;)v.removeChild(v.lastChild)}),m=setInterval(()=>{const i=e.getElapsedSec(),p=String(Math.floor(i/3600)).padStart(2,"0"),M=String(Math.floor(i%3600/60)).padStart(2,"0"),d=String(i%60).padStart(2,"0");b.textContent=`${p}:${M}:${d}`},250);return()=>{f(),l(),clearInterval(m)}}const I=["INFERENCE ACTIVE","CONSENSUS LOCK","PATTERN MATCH","REWEIGHTING","INFERENCE ACTIVE"];function $(e,s){const t=e.getContext("2d");if(!t)return()=>{};const c=e.width,n=e.height,a=c/2,h=n/2-10,v=18,b=Array.from({length:v},(d,y)=>{const T=1+y%3;return{angle:y/v*Math.PI*2,ring:T,r:70+T*38,speed:.004+T*.002*(y%2?1:-1),pulse:Math.random()*Math.PI*2,size:3+y%3}}),f=[];for(let d=0;d<v;d++)f.push([d,(d+1)%v]),d%3===0&&f.push([d,(d+5)%v]);let l=0,m=0,i=0,p;function M(){if(!t)return;t.clearRect(0,0,c,n),l+=1;for(let r=0;r<3;r++)t.beginPath(),t.arc(a,h,90+r*42,0,Math.PI*2),t.strokeStyle=`rgba(0,229,255,${.12-r*.03})`,t.lineWidth=1,t.setLineDash([4,8]),t.stroke(),t.setLineDash([]);t.beginPath(),t.arc(a,h,175,l*.02,l*.02+1.2),t.strokeStyle="rgba(255,45,106,0.55)",t.lineWidth=2,t.stroke(),t.beginPath(),t.arc(a,h,130,-l*.015,-l*.015+.9),t.strokeStyle="rgba(0,255,156,0.45)",t.lineWidth=2,t.stroke();const d=b.map(r=>(r.angle+=r.speed,r.pulse+=.08,{x:a+Math.cos(r.angle)*r.r,y:h+Math.sin(r.angle)*r.r*.92,n:r}));if(f.forEach(([r,S])=>{const u=d[r],E=d[S];t.beginPath(),t.moveTo(u.x,u.y),t.lineTo(E.x,E.y),t.strokeStyle="rgba(0,229,255,0.18)",t.lineWidth=1,t.stroke()}),l%40<20){const r=l%v;t.beginPath(),t.moveTo(d[r].x,d[r].y),t.lineTo(a,h),t.strokeStyle="rgba(0,255,156,0.35)",t.lineWidth=1,t.stroke()}d.forEach(({x:r,y:S,n:u})=>{const E=.5+.5*Math.sin(u.pulse);t.beginPath(),t.arc(r,S,u.size+E,0,Math.PI*2),t.fillStyle=u.ring===1?"#00ff9c":u.ring===2?"#00e5ff":"#ff2d6a",t.shadowColor=t.fillStyle,t.shadowBlur=10,t.fill(),t.shadowBlur=0});const y=1+.04*Math.sin(l*.05);t.save(),t.translate(a,h),t.scale(y,y),t.beginPath();for(let r=0;r<6;r++){const S=r/6*Math.PI*2-Math.PI/2,u=Math.cos(S)*42,E=Math.sin(S)*42;r===0?t.moveTo(u,E):t.lineTo(u,E)}t.closePath(),t.fillStyle="rgba(0,20,30,0.9)",t.fill(),t.strokeStyle="#00e5ff",t.lineWidth=2,t.shadowColor="#00e5ff",t.shadowBlur=12,t.stroke(),t.shadowBlur=0;const T=-8;t.fillStyle="#00ff9c",t.shadowColor="#00ff9c",t.shadowBlur=8,t.beginPath(),t.ellipse(-12,T,5,3+Math.sin(l*.1),0,0,Math.PI*2),t.ellipse(12,T,5,3+Math.sin(l*.1),0,0,Math.PI*2),t.fill(),t.beginPath(),t.moveTo(-10,12),t.quadraticCurveTo(0,18+Math.sin(l*.08)*2,10,12),t.strokeStyle="#ff2d6a",t.lineWidth=1.5,t.shadowColor="#ff2d6a",t.shadowBlur=6,t.stroke(),t.shadowBlur=0,t.fillStyle="rgba(0,229,255,0.7)",[[-20,0],[20,0],[0,-22],[0,22]].forEach(([r,S])=>{t.beginPath(),t.arc(r,S,2,0,Math.PI*2),t.fill()}),t.restore(),t.fillStyle="rgba(0,255,156,0.35)",t.font="9px monospace",t.fillText("CORE.α",a-18,h+58),i=requestAnimationFrame(M)}return M(),p=setInterval(()=>{m=(m+1)%I.length,s.textContent=I[m]},2800),()=>{cancelAnimationFrame(i),p&&clearInterval(p)}}const U=[{s:"BTC",p:97842,d:1.24},{s:"ETH",p:3421,d:-.58},{s:"SOL",p:178.4,d:2.11},{s:"NVDA",p:1184,d:.87},{s:"TSLA",p:248,d:-1.02},{s:"AAPL",p:229,d:.34},{s:"MSFT",p:428,d:.61},{s:"AMD",p:162,d:1.55},{s:"LINK",p:14.2,d:-.22},{s:"AVAX",p:32.8,d:3.01}],L=["LONG","LONG","HOLD","LONG","SHORT","LONG"],P=["BUY","SELL","HEDGE","SCALE","SCAN","ENTRY","EXIT","REBAL"],A=["BTC-PERP","ETH-PERP","SOL-PERP","NVDA","TSLA","LINK","AVAX","AAPL"],x=["swarm consensus reached","alpha signal confirmed","risk gate passed","latency arb window","mean-reversion trigger","momentum spike detect","node vote 31/47","slippage 0.02%","fill @ mid+1","position sized 1.2x"];class F{constructor(){g(this,"snap");g(this,"sigIdx",0);g(this,"basePnl",12847.32);g(this,"px",97842);g(this,"eq",100);g(this,"logSec",0);g(this,"timers",[]);g(this,"listeners",new Set);g(this,"logListeners",new Set);g(this,"startedAt",Date.now());const s=[],t=[];let c=97842,n=100;for(let a=0;a<60;a++)c+=(Math.random()-.48)*80,n+=(Math.random()-.35)*1.2,s.push(c),t.push(n);this.px=c,this.eq=n,this.snap={pnl:this.basePnl,pnlPct24h:4.82,agents:47,winRate:68.4,risk:.31,sharpe:2.14,ordersPerMin:128,btc:97842,eth:3421,sol:178.4,signal:"LONG",tickers:U.map(a=>({...a})),priceSeries:s,equitySeries:t}}getSnapshot(){return this.snap}subscribe(s){return this.listeners.add(s),s(this.snap),()=>this.listeners.delete(s)}onLog(s){return this.logListeners.add(s),s}start(){this.startedAt=Date.now(),this.timers.push(setInterval(()=>this.tickPnl(),180)),this.timers.push(setInterval(()=>this.tickAgents(),900)),this.timers.push(setInterval(()=>this.tickMetrics(),400)),this.timers.push(setInterval(()=>this.tickCharts(),200)),this.timers.push(setInterval(()=>this.emitLog(),700)),this.timers.push(setInterval(()=>this.tickClock(),250))}stop(){this.timers.forEach(clearInterval),this.timers=[]}getElapsedSec(){return this.logSec}notify(){this.listeners.forEach(s=>s(this.snap))}tickPnl(){this.snap.pnl+=(Math.random()-.35)*42,this.snap.pnlPct24h=4.82+(this.snap.pnl-this.basePnl)/2e3,this.notify()}tickAgents(){this.snap.agents=Math.max(40,Math.min(64,this.snap.agents+Math.floor(Math.random()*5)-2)),this.notify()}tickMetrics(){const s=this.snap;s.winRate=Math.max(55,Math.min(78,s.winRate+(Math.random()-.5)*.8)),s.risk=Math.max(.15,Math.min(.55,s.risk+(Math.random()-.5)*.02)),s.sharpe=Math.max(1.4,Math.min(2.8,s.sharpe+(Math.random()-.5)*.05)),s.ordersPerMin=Math.max(80,Math.min(180,s.ordersPerMin+Math.floor(Math.random()*11)-5)),s.btc+=(Math.random()-.48)*40,s.eth+=(Math.random()-.48)*4,s.sol+=(Math.random()-.48)*.4,Math.random()<.15&&(this.sigIdx=(this.sigIdx+1)%L.length,s.signal=L[this.sigIdx]),this.notify()}tickCharts(){this.px+=(Math.random()-.48)*60,this.eq+=(Math.random()-.3)*.9,this.snap.priceSeries.push(this.px),this.snap.priceSeries.shift(),this.snap.equitySeries.push(this.eq),this.snap.equitySeries.shift(),this.snap.btc=this.px,this.notify()}tickClock(){this.logSec=Math.floor((Date.now()-this.startedAt)/1e3)}emitLog(){const s=P[Math.floor(Math.random()*P.length)],t=A[Math.floor(Math.random()*A.length)],c=x[Math.floor(Math.random()*x.length)],n=Math.random()>.4,a=(n?"+":"-")+"$"+(Math.random()*420+12).toFixed(0),v={time:String(Math.floor(this.logSec/60)).padStart(2,"0")+":"+String(this.logSec%60).padStart(2,"0")+"."+String(Math.floor(Math.random()*10)),action:s,message:`${t} · ${c}`,pnl:a,up:n};this.logListeners.forEach(b=>b(v))}getEquityDisplay(){return this.eq*128.47}}const q=!0;function G(e={}){const s=e.exchangeId||"mock";return new W(s)}class W{constructor(s){g(this,"id");g(this,"readOnly",!0);this.id=s||"mock"}async fetchBalance(){return[{currency:"USDT",free:42500,used:12800,total:55300},{currency:"BTC",free:.42,used:.15,total:.57},{currency:"ETH",free:3.2,used:1.1,total:4.3}]}async fetchPositions(){return[{symbol:"BTC/USDT:USDT",side:"long",size:.15,entryPrice:96200,unrealizedPnl:246.3},{symbol:"ETH/USDT:USDT",side:"long",size:1.1,entryPrice:3380,unrealizedPnl:45.1}]}async fetchTicker(s){const c={"BTC/USDT":{last:97842,percentage:1.24},"ETH/USDT":{last:3421,percentage:-.58},"SOL/USDT":{last:178.4,percentage:2.11}}[s]??{last:100,percentage:0};return{symbol:s,...c}}async fetchTickers(s){return[{s:"BTC",p:97842,d:1.24},{s:"ETH",p:3421,d:-.58},{s:"SOL",p:178.4,d:2.11}]}}function K(){return{exchangeId:"binance",useMock:q,readOnly:!0}}const O=document.getElementById("app");if(!O)throw new Error("#app missing");D(O);const V=K(),B=document.getElementById("modeBadge");B&&(B.textContent="READ-ONLY · MOCK");const Y=G({exchangeId:V.exchangeId});Y.fetchBalance().then(e=>{console.info("[HUD] balances (read-only stub):",e.length,"currencies")});const C=new F,_=H(C),z=document.getElementById("orbit"),X=document.getElementById("orbitStatus"),j=$(z,X);C.start();window.__HUD_READY__=!0;window.addEventListener("beforeunload",()=>{C.stop(),_(),j()});
